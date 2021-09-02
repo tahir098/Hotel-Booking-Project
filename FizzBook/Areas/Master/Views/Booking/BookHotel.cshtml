@@ -1,0 +1,87 @@
+﻿@model FizzBook.Areas.Master.Models.Bookings.HotelBookingsModel
+<div class="card card-custom">
+    <div class="card-header">
+        <h3 class="card-title">
+            Book a Hotel
+        </h3>
+    </div>
+    <!--begin::Form-->
+    <form id="formToSubmit"
+          method="post"
+          data-ajax="true"
+          data-ajax-method="post"
+          data-ajax-begin="OnBegin"
+          data-ajax-success="completed"
+          data-ajax-failure="OnFailure"
+          data-ajax-url="@Url.Action("BookHotel","Booking")">
+        <div class="card-body">
+            <div asp-validation-summary="ModelOnly">
+                <span>Please correct the following errors</span>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-6">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" autofocus class="form-control" name="Name" placeholder="" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="col-lg-6">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" autofocus class="form-control" name="Email" placeholder="" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-6">
+                    <label asp-for="CheckInDate"></label>
+                    <input asp-for="CheckInDate" autofocus class="form-control" name="CheckInDate" placeholder="" />
+                    <span asp-validation-for="CheckInDate" class="text-danger"></span>
+                </div>
+                <div class="col-lg-6">
+                    <label asp-for="CheckInTime"></label>
+                    <input asp-for="CheckInTime" autofocus class="form-control" name="CheckInTime" placeholder="" />
+                    <span asp-validation-for="CheckInTime" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-6">
+                    <label asp-for="CheckOutDate"></label>
+                    <input asp-for="CheckOutDate" autofocus class="form-control" name="CheckOutDate" placeholder="" />
+                    <span asp-validation-for="CheckOutDate" class="text-danger"></span>
+                </div>
+                <div class="col-lg-6">
+                    <label asp-for="CheckOutTime"></label>
+                    <input asp-for="CheckOutTime" autofocus class="form-control" name="CheckOutTime" placeholder="" />
+                    <span asp-validation-for="CheckOutTime" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-12">
+                    <label asp-for="ContactNo"></label>
+                    <input asp-for="ContactNo" autofocus class="form-control" name="ContactNo" placeholder="" />
+                    <span asp-validation-for="ContactNo" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-lg-6">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+                <div class="col-lg-6 text-right">
+                    <button type="button" onclick="SubmitForm()" id="GenericOkbtn" class="btn btn-primary mr-2 genericSpinner">
+                        Book Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!--end::Form-->
+</div>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        jQuery.validator.unobtrusive.parse("#formToSubmit");
+    });
+</script>

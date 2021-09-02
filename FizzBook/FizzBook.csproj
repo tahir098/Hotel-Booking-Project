@@ -1,0 +1,117 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\Theme\**" />
+    <Content Remove="wwwroot\Theme\**" />
+    <EmbeddedResource Remove="wwwroot\Theme\**" />
+    <None Remove="wwwroot\Theme\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Hotel\Data\" />
+    <Folder Include="Areas\Master\Data\" />
+    <Folder Include="wwwroot\Images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\builder49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\crud\forms\editors\tinymce49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\crud\forms\widgets\autosize49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\crud\forms\widgets\bootstrap-datepicker49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\crud\forms\widgets\bootstrap-daterangepicker49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\crud\forms\widgets\bootstrap-datetimepicker49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\crud\forms\widgets\bootstrap-maxlength49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\crud\forms\widgets\bootstrap-multipleselectsplitter49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\crud\forms\widgets\bootstrap-select49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\crud\forms\widgets\bootstrap-switch49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\crud\forms\widgets\bootstrap-timepicker49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\crud\forms\widgets\bootstrap-touchspin49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\crud\forms\widgets\clipboard49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\crud\forms\widgets\form-repeater49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\crud\forms\widgets\input-mask49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\crud\forms\widgets\ion-range-slider49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\crud\forms\widgets\jquery-mask49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\crud\forms\widgets\nouislider49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\crud\forms\widgets\select249d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\crud\forms\widgets\tagify49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\crud\forms\widgets\typeahead49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\calendar\background-events49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\calendar\basic49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\calendar\external-events49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\calendar\google49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\calendar\list-view49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\cards\draggable49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\cards\tools49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\charts\amcharts\charts49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\charts\amcharts\maps49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\charts\amcharts\stock-charts49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\charts\apexcharts49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\charts\flotcharts49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\charts\google-charts49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\custom\spinners49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\maps\google-maps49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\maps\jqvmap49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\maps\leaflet49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\miscellaneous\blockui49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\miscellaneous\bootstrap-notify49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\miscellaneous\cropper49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\miscellaneous\dual-listbox49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\miscellaneous\idle-timer49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\miscellaneous\kanban-board49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\miscellaneous\session-timeout49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\miscellaneous\sticky-panels49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\miscellaneous\sweetalert249d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\miscellaneous\toastr49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\features\miscellaneous\treeview49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\pages\widgets49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\js\scripts.bundle49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\custom\cropper\cropper.bundle49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\custom\draggable\draggable.bundle49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\custom\flot\flot.bundle49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\custom\fullcalendar\fullcalendar.bundle49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\custom\gmaps\gmaps49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\custom\jqvmap\jqvmap.bundle49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\custom\jstree\jstree.bundle49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\custom\kanban\kanban.bundle49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\custom\leaflet\leaflet.bundle49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\custom\prismjs\prismjs.bundle49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\custom\tinymce\tinymce.bundle49d8.js" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\global\fonts\%40fortawesome\fa-brands-400.svg" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\global\fonts\%40fortawesome\fa-brands-400.woff2" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\global\fonts\%40fortawesome\fa-regular-400.svg" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\global\fonts\%40fortawesome\fa-regular-400.woff2" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\global\fonts\%40fortawesome\fa-solid-900.svg" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\global\fonts\%40fortawesome\fa-solid-900.woff2" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\global\fonts\flaticon2\Flaticon2.svg" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\global\fonts\flaticon\Flaticon.svg" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\global\fonts\keenthemes-icons\Ki.svg" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\global\fonts\line-awesome\la-brands-400.svg" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\global\fonts\line-awesome\la-brands-400.woff2" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\global\fonts\line-awesome\la-regular-400.svg" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\global\fonts\line-awesome\la-regular-400.woff2" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\global\fonts\line-awesome\la-solid-900.svg" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\global\fonts\line-awesome\la-solid-900.woff2" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\global\fonts\socicon\socicon.svg" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\global\fonts\summernote\summernote.woff2" />
+    <None Include="wwwroot\theme2\html\demo10\dist\assets\plugins\global\plugins.bundle49d8.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="jQuery" Version="3.5.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="xunit.extensibility.core" Version="2.4.1" />
+  </ItemGroup>
+
+</Project>

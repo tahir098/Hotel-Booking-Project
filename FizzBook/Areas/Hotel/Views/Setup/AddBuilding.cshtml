@@ -1,0 +1,71 @@
+﻿@model FizzBook.Areas.Hotel.Models.Hotels.BuildingModel
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+                New Building
+            </h5>
+        </div>
+        <div class="modal-body">
+            <form id="formToSubmit"
+                  method="post"
+                  data-ajax="true"
+                  data-ajax-method="post"
+                  data-ajax-begin="OnBegin"
+                  data-ajax-success="completed"
+                  data-ajax-failure="OnFailure"
+                  enctype="multipart/form-data"
+                  data-ajax-url="@Url.Action("AddBuilding","Setup")">
+                <div asp-validation-summary="ModelOnly">
+                    <span>Please correct the following errors</span>
+                    <input type="hidden" asp-for="HotelName" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" autofocus class="form-control" name="Name" placeholder="Enter Building Name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HotelName"></label>
+                    <input asp-for="HotelName" autofocus class="form-control" name="HotelName" readonly />
+                    <span asp-validation-for="HotelName" class="text-danger"></span>
+                </div>
+                @*<div class="form-group">
+                        <label asp-for="HotelId"></label>
+                        @Html.DropDownListFor(x => Model.HotelId, new SelectList(Model.Hotels, "Value", "Text"), "Select Hotel", htmlAttributes: new { @class = "form-control", id = "hotel" })
+                        <span asp-validation-for="HotelId" class="text-danger"></span>
+                    </div>*@
+                <div class="form-group mb-1">
+                    <label asp-for="Address" for="exampleTextarea">Address<span class="text-danger">*</span></label>
+                    <textarea asp-for="Address" class="form-control" name="Address" placeholder="Please provide address details"></textarea>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12">
+                        <label>Image</label>
+                        <input type="file" name="BuildingImage" class="form-control" />
+                    </div>
+                </div>
+                @*<div class="card-footer">
+                        <button type="button" onclick="SubmitForm()" id="GenericOkbtn" class="btn btn-primary mr-2 genericSpinner">
+                            Submit
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>*@
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+            <button type="button" onclick="SubmitForm()" id="GenericOkbtn" class="btn btn-primary font-weight-bold">Submit</button>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        jQuery.validator.unobtrusive.parse("#formToSubmit");
+    });
+</script>

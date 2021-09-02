@@ -1,0 +1,340 @@
+﻿@model FizzBook.Areas.Master.Models.Bookings.CheckOutTableModel
+
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>
+                Edit @Model.TableNo Order
+            </h3>
+        </div>
+        <div class="modal-body">
+            <form id="formToSubmit"
+                  method="post"
+                  data-ajax="true"
+                  data-ajax-method="post"
+                  data-ajax-begin="OnBegin"
+                  data-ajax-success="completed"
+                  data-ajax-failure="OnFailure"
+                  data-ajax-url="@Url.Action("CheckOutTable","Booking")">
+                <div asp-validation-summary="ModelOnly">
+                    <span>Please correct the following errors</span>
+                </div>
+                @Html.HiddenFor(m => m.BuildingId)
+                @Html.HiddenFor(m => m.HotelId)
+                @Html.HiddenFor(m => m.FloorId)
+                @Html.HiddenFor(m => m.TableId)
+
+                @Html.HiddenFor(m => m.CityId)
+                @Html.HiddenFor(m => m.UserId)
+                @*@Html.HiddenFor(m => m.RoomNo)*@
+                @*@Html.HiddenFor(m => m.RoomTypeName)
+                    @Html.HiddenFor(m => m.BuildingName)*@
+                @*@Html.HiddenFor(m => m.TypeId)*@
+                @Html.HiddenFor(m => m.CountryId)
+                @Html.HiddenFor(m => m.CreateDate)
+                @Html.HiddenFor(m => m.FarePerHour)
+
+                @*@Html.HiddenFor(m => m.CheckInDate)
+                    @Html.HiddenFor(m => m.CheckInTime)
+                    @Html.HiddenFor(m => m.CheckOutDate)
+                    @Html.HiddenFor(m => m.CheckOutTime)*@
+
+                @Html.HiddenFor(m => m.Id)
+
+                <div class="form-group row">
+                    <div class="col-lg-6">
+                        <label asp-for="CheckInDate">Check In Date</label>
+                        <input asp-for="CheckInDate" type="date" autofocus class="form-control" name="CheckInDate" placeholder="" />
+                        <span asp-validation-for="CheckInDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6">
+                        <label asp-for="CheckInTime">Check In Time</label>
+                        <input asp-for="CheckInTime" type="time" autofocus class="form-control kt_timepicker_1" name="CheckInTime" placeholder="" />
+                        <span asp-validation-for="CheckInTime" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6">
+                        <label asp-for="CheckOutDate">Check Out Date</label>
+                        <input asp-for="CheckOutDate" type="date" autofocus class="form-control" name="CheckOutDate" placeholder="" />
+                        <span asp-validation-for="CheckOutDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6">
+                        <label asp-for="CheckOutTime">Check Out Time</label>
+                        <input asp-for="CheckOutTime" type="time" autofocus class="form-control" name="CheckOutTime" placeholder="" />
+                        <span asp-validation-for="CheckOutTime" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6">
+                        <label asp-for="FarePerHour">Fare Per Hour</label>
+                        <div class="input-group">
+                            <input asp-for="FarePerHour" autofocus class="form-control" name="FarePerHour" placeholder="" aria-describedby="basic-addon2" disabled />
+                            <div class="input-group-append"><span class="input-group-text">Pkr</span></div>
+                            <span asp-validation-for="FarePerHour" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label asp-for="TotalHours">Total Hours</label>
+                        <div class="input-group">
+                            <input asp-for="TotalHours" oninput="priceCalculation()" autofocus class="form-control" name="TotalHours" id="TotalHours" placeholder="" aria-describedby="basic-addon2" />
+                            <div class="input-group-append"><span class="input-group-text">Pkr</span></div>
+                            <span asp-validation-for="TotalHours" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label asp-for="TotalFare">Total Fare</label>
+                        <div class="input-group">
+                            <input asp-for="TotalFare" autofocus class="form-control" name="TotalFare" id="TotalFare" placeholder="" aria-describedby="basic-addon2" readonly />
+                            <div class="input-group-append"><span class="input-group-text">Pkr</span></div>
+                            <span asp-validation-for="TotalFare" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label asp-for="DiscountAmount">Discount</label>
+                        <div class="input-group">
+                            <input asp-for="DiscountAmount" oninput="priceCalculation()" min="0" autofocus class="form-control" id="DiscountAmount" name="DiscountAmount" placeholder="" aria-describedby="basic-addon2" />
+                            <div class="input-group-append"><span class="input-group-text">Pkr</span></div>
+                            <span asp-validation-for="DiscountAmount" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label asp-for="RemainingAmount">Remaining Amount</label>
+                        <input asp-for="RemainingAmount" min="0" readonly autofocus class="form-control" id="RemainingAmount" name="RemainingAmount" placeholder="0" />
+                        <span asp-validation-for="RemainingAmount" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6">
+                        <label asp-for="TotalBill">Grand Total</label>
+                        <input asp-for="TotalBill" min="0" autofocus class="form-control border-right-light-success" name="TotalBill" id="TotalBill" placeholder="" readonly />
+                        <span asp-validation-for="TotalBill" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <label asp-for="PaidAmount">PaidAmount</label>
+                        <input asp-for="PaidAmount" oninput="OnPaidChangeRemaining()" min="0" autofocus class="form-control border-right-light-success" name="PaidAmount" id="PaidAmount" placeholder="" />
+                        <span asp-validation-for="PaidAmount" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12">
+                        @Html.HiddenFor(m => m.ServiceIdsString)
+                        @Html.HiddenFor(m => m.TableServicePrice)
+                        @*<input asp-for="HallServicePrice" id="HallServicePrice"/>*@
+                        <label asp-for="ServiceIds">Room Services</label>
+                        @Html.DropDownListFor(x => Model.ServiceIds, new SelectList(Model.Services, "Value", "Text"), htmlAttributes: new { @class = "form-control teseSeclet", style = "width: 75%", id = "tese", multiple = "multiple" })
+                        <span asp-validation-for="ServiceIds" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox-list">
+                        <div>
+                            <label class="checkbox">
+                                <input type="checkbox" name="IsPaid" asp-for="IsPaid">
+                                <span></span>Is Paid
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" onclick="SubmitForm()" id="GenericOkbtn" class="btn btn-primary mr-2 genericSpinner">
+                Save
+            </button>
+        </div>
+        @*<div class="form-group row">
+                <label class="col-form-label text-right col-lg-3 col-sm-12">Minimum Setup</label>
+                <div class="col-lg-4 col-md-9 col-sm-12">
+                    <input class="form-control" id="kt_timepicker_1" readonly placeholder="Select time" type="text" />
+                </div>
+            </div>*@
+    </div>
+</div>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+@*<script type="text/javascript">
+        $(document).ready(function () {
+            // alert('2');
+            jQuery.validator.unobtrusive.parse("#formToSubmit");
+        });
+    </script>*@
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Class definition
+        var KTSelect2 = function () {
+            // Private functions
+            var demos = function () {
+
+                // multi select
+                $('.teseSeclet').select2({
+                });
+            }
+
+            // Public functions
+            return {
+                init: function () {
+                    demos();
+                    // modalDemos();
+                }
+            };
+        }();
+
+        // Initialization
+        jQuery(document).ready(function () {
+            //KTSelect2.init();
+            var selected = $('#ServiceIdsString').val();
+            var seatsArray = selected.split(',');
+            $('.teseSeclet').val([seatsArray]);
+            $(".teseSeclet").select2({
+            });
+            debugger
+            console.log(seatsArray);
+            for (let i = 0; i < seatsArray.length; i++) {
+                $('.teseSeclet').val(seatsArray);
+                $('.teseSeclet').trigger('change');
+            }
+        });
+
+        $(".teseSeclet").select2({ disabled: 'readonly' });
+        jQuery.validator.unobtrusive.parse("#formToSubmit");
+
+
+
+        $('.datepicker').datepicker({
+        });
+
+    });
+</script>
+
+<script>
+
+    $(document).ready(function () {
+
+        debugger;
+
+        var FarePerHour = $('#FarePerHour').val();
+        var TotalHours = $('#TotalHours').val();
+        var DiscountAmount = $('#DiscountAmount').val();
+        var TableServicePrice = $('#TableServicePrice').val();
+
+        var totalBill = parseInt(FarePerHour) * parseInt(TotalHours);
+        $('#TotalFare').val(parseInt(totalBill));
+
+        totalBill = parseInt(totalBill) + parseInt(TableServicePrice)
+
+
+        if (DiscountAmount !== "") {
+            totalBill = parseInt(totalBill) - parseInt(DiscountAmount);
+
+        }
+
+        // totalBill = parseInt(totalBill) - parseInt(DiscountAmount);
+
+
+        $('#TotalBill').val(parseInt(totalBill));
+        var paidAmount = $("#PaidAmount").val();
+        var grandTotal = $("#TotalBill").val();
+        var remainingAmount = grandTotal - paidAmount;
+        $("#RemainingAmount").val(remainingAmount);
+
+    });
+
+
+    function priceCalculation() {
+        debugger;
+        var FarePerHour = $('#FarePerHour').val();
+        var TotalHours = $('#TotalHours').val();
+        var DiscountAmount = $('#DiscountAmount').val();
+        var TableServicePrice = $('#TableServicePrice').val();
+
+        var totalBill = parseInt(FarePerHour) * parseInt(TotalHours);
+        var TotalFare = $('#TotalFare').val(parseInt(totalBill));
+
+        totalBill = parseInt(totalBill) + parseInt(TableServicePrice)
+
+
+        if (DiscountAmount !== "") {
+            totalBill = parseInt(totalBill) - parseInt(DiscountAmount);
+
+        }
+
+        //totalBill = parseInt(totalBill) - parseInt(DiscountAmount);
+        $('#TotalBill').val(parseInt(totalBill));
+
+    }
+
+    function OnPaidChangeRemaining() {
+        debugger;
+        var paidAmount = $("#PaidAmount").val();
+        var grandTotal = $("#TotalBill").val();
+        var remainingAmount = grandTotal - paidAmount;
+        $("#RemainingAmount").val(remainingAmount);
+    }
+
+</script>
+@*<script>
+        // Class definition
+
+        var KTBootstrapTimepicker = function () {
+
+            // Private functions
+            var demos = function () {
+                // validation state demos
+                // minimum setup
+                $('#kt_timepicker_1_validate, #kt_timepicker_2_validate').timepicker({
+                    minuteStep: 1,
+                    showSeconds: true,
+                    showMeridian: false,
+                    snapToStep: true
+                });
+            }
+
+            return {
+                // public functions
+                init: function () {
+                    demos();
+                }
+            };
+        }();
+
+        jQuery(document).ready(function () {
+            KTBootstrapTimepicker.init();
+        });
+    </script>*@
+
+@*<script>
+
+        $('#TotalNights').change(function () {
+
+            var NightFare = $("#FarePerNight").val();
+            var totalNights = $('#TotalNights').val();
+            var totalBill = totalNights * NightFare;
+            console.log(totalBill)
+            $('#TotalBill').val(totalBill);
+            $('#TotalFare').val(totalBill);
+
+        });
+
+        function OnPaidChangeRemaining() {
+            var paidAmount = $("#PaidAmount").val();
+            var grandTotal = $("#TotalBill").val();
+            var remainingAmount = grandTotal - paidAmount;
+            $("#RemainingAmount").val(remainingAmount);
+        }
+
+        //$("#DiscountAmount").change(function () {
+        //    var ActutalDiscount = $("#DiscountAmount").val();
+        //    var TotalFare = $('#TotalFare').val();
+        //    var GrandTotal = TotalFare - ActutalDiscount;
+        //    $("#TotalBill").val(GrandTotal);
+        //});
+
+    </script>*@
+
+
+

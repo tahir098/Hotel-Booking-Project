@@ -1,0 +1,97 @@
+﻿@model FizzBook.Areas.Master.Models.Setup.CompaniesModel
+<div class="card card-custom">
+    <div class="card-header">
+        <h3 class="card-title">
+            Editing @Model.CompanyName
+        </h3>
+    </div>
+    <!--begin::Form-->
+    <form id="formToSubmit"
+          method="post"
+          data-ajax="true"
+          data-ajax-method="post"
+          data-ajax-begin="OnBegin"
+          data-ajax-success="completed"
+          data-ajax-failure="OnFailure"
+          data-ajax-url="@Url.Action("EditCompany","Setup")">
+        <div class="card-body">
+            <div asp-validation-summary="ModelOnly">
+                <span>Please correct the following errors</span>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-6">
+                    <label asp-for="UserFirstName"></label>
+                    <input asp-for="UserFirstName" autofocus class="form-control" name="UserFirstName" placeholder="Enter New Room Type" />
+                    <span asp-validation-for="UserFirstName" class="text-danger"></span>
+                </div>
+                <div class="col-lg-6">
+                    <label asp-for="UserLastName"></label>
+                    <input asp-for="UserLastName" autofocus class="form-control" name="UserLastName" placeholder="No of Beds" />
+                    <span asp-validation-for="UserLastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-6">
+                    <label asp-for="CompanyName"></label>
+                    <input asp-for="CompanyName" autofocus class="form-control" name="CompanyName" placeholder="Enter Fare Per Night" />
+                    <span asp-validation-for="CompanyName" class="text-danger"></span>
+                </div>
+                <div class="col-lg-6">
+                    <label asp-for="CompanySite"></label>
+                    <input asp-for="CompanySite" autofocus class="form-control" name="CompanySite" placeholder="Maximum No Of Beds" />
+                    <span asp-validation-for="CompanySite" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-6">
+                    <label asp-for="ContactNo"></label>
+                    <input asp-for="ContactNo" autofocus class="form-control" name="ContactNo" placeholder="Room View" />
+                    <span asp-validation-for="ContactNo" class="text-danger"></span>
+                </div>
+                @*<div class="col-lg-4">
+                        <label asp-for="City"></label>
+                        <input asp-for="City" autofocus class="form-control" name="City" placeholder="Room View" />
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>*@
+                <div class="col-lg-6">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" autofocus class="form-control" name="Email" placeholder="Room View" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-6">
+                    <label asp-for="AddressOne"></label>
+                    <input asp-for="AddressOne" autofocus class="form-control" name="AddressOne" placeholder="Room View" />
+                    <span asp-validation-for="AddressOne" class="text-danger"></span>
+                </div>
+                <div class="col-lg-6">
+                    <label asp-for="AddressTwo"></label>
+                    <input asp-for="AddressTwo" autofocus class="form-control" name="AddressTwo" placeholder="Room View" />
+                    <span asp-validation-for="AddressTwo" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-lg-6">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+                <div class="col-lg-6 text-right">
+                    <button type="button" onclick="SubmitForm()" id="GenericOkbtn" class="btn btn-primary mr-2 genericSpinner">
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!--end::Form-->
+</div>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        jQuery.validator.unobtrusive.parse("#formToSubmit");
+    });
+</script>

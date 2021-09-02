@@ -1,0 +1,264 @@
+﻿@model FizzBook.Areas.Master.Models.Bookings.TableBookingsModel
+
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+                Book @Model.TableNo
+            </h5>
+        </div>
+        <div class="modal-body">
+            <form id="formToSubmit"
+                  method="post"
+                  data-ajax="true"
+                  data-ajax-method="post"
+                  data-ajax-begin="OnBegin"
+                  data-ajax-success="completed"
+                  data-ajax-failure="OnFailure"
+                  data-ajax-url="@Url.Action("BookTable","Booking")">
+                <div asp-validation-summary="ModelOnly">
+                    <span>Please correct the following errors</span>
+                </div>
+                @Html.HiddenFor(m => m.BuildingId)
+                @Html.HiddenFor(m => m.TableId)
+                @Html.HiddenFor(m => m.HotelId)
+                @Html.HiddenFor(m => m.FloorId)
+                @Html.HiddenFor(m => m.CityId)
+                @Html.HiddenFor(m => m.TableNo)
+                @Html.HiddenFor(m => m.CountryId)
+                @*@Html.HiddenFor(m => m.DiscountAmount)*@
+                @Html.HiddenFor(m => m.FarePerHour)
+
+
+                @*<div class="form-group row">
+                        <div class="col-lg-6">
+                            <label asp-for="Name"></label>
+                            <input asp-for="Name" autofocus class="form-control" name="Name" placeholder="" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="col-lg-6">
+                            <label asp-for="CNIC"></label>
+                            <input asp-for="CNIC" autofocus class="form-control" name="CNIC" placeholder="" />
+                            <span asp-validation-for="CNIC" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-6">
+                            <label asp-for="Email"></label>
+                            <input asp-for="Email" autofocus class="form-control" name="Email" placeholder="" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="col-lg-6">
+                            <label asp-for="ContactNo"></label>
+                            <input asp-for="ContactNo" autofocus class="form-control" name="ContactNo" placeholder="" />
+                            <span asp-validation-for="ContactNo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-6">
+                            <label asp-for="CheckInDate"></label>
+                            <input asp-for="CheckInDate" autofocus class="form-control" name="CheckInDate" placeholder="" />
+                            <span asp-validation-for="CheckInDate" class="text-danger"></span>
+                        </div>
+                        <div class="col-lg-6">
+                            <label asp-for="CheckInTime"></label>
+                            <input asp-for="CheckInTime" autofocus class="form-control" name="CheckInTime" placeholder="" />
+                            <span asp-validation-for="CheckInTime" class="text-danger"></span>
+                        </div>
+                    </div>*@
+
+                <div class="form-group row">
+                    <div class="col-lg-6">
+                        <label asp-for="CNIC"></label>
+                        <input asp-for="CNIC" autofocus class="form-control" name="CNIC" placeholder="" />
+                        <span asp-validation-for="CNIC" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" autofocus class="form-control" name="Name" placeholder="" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" autofocus class="form-control" name="Email" placeholder="" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6">
+                        <label asp-for="ContactNo"></label>
+                        <input asp-for="ContactNo" autofocus class="form-control" name="ContactNo" placeholder="" />
+                        <span asp-validation-for="ContactNo" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12">
+                        <label asp-for="ServiceIds">Table Services</label>
+                        @Html.DropDownListFor(x => Model.ServiceIds, new SelectList(Model.Services, "Value", "Text"), "Select Table Services", htmlAttributes: new { @class = "form-control select2", style = "width: 75%", id = "kt_select2_3", multiple = "multiple" })
+                        <span asp-validation-for="ServiceIds" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-lg-6">
+                        <label asp-for="CheckInDate"></label>
+                        <input asp-for="CheckInDate" autofocus class="form-control" name="CheckInDate" placeholder="" />
+                        <span asp-validation-for="CheckInDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6">
+                        <label asp-for="CheckInTime"></label>
+                        <input asp-for="CheckInTime" autofocus class="form-control" name="CheckInTime" placeholder="" />
+                        <span asp-validation-for="CheckInTime" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+            <button type="button" onclick="SubmitForm()" id="GenericOkbtn" class="btn btn-primary font-weight-bold"> Book Now</button>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        jQuery.validator.unobtrusive.parse("#formToSubmit");
+    });
+</script>
+
+
+<script>
+    // Class definition
+    var KTSelect2 = function () {
+        // Private functions
+        var demos = function () {
+
+            // multi select
+            $('#kt_select2_3').select2({
+            });
+        }
+
+        var modalDemos = function () {
+            $('#kt_select2_modal').on('shown.bs.modal', function () {
+                // multi select
+                $('#kt_select2_3_modal').select2({
+                });
+            });
+        }
+
+        // Public functions
+        return {
+            init: function () {
+                demos();
+                modalDemos();
+            }
+        };
+    }();
+
+    // Initialization
+    jQuery(document).ready(function () {
+        KTSelect2.init();
+    });
+</script>
+
+
+<script>
+    $('#CNIC').change(function () {
+        var selectedCNIC = $("#CNIC").val();
+        if (selectedCNIC != null && selectedCNIC != '') {
+            $.getJSON('@Url.Action("SearchUserByCnic")', { cnic: selectedCNIC }, function (result) {
+                      {
+                          //debugger;
+                           $('#Name').val(result.name);
+                           $('#Email').val(result.email)
+                           $('#ContactNo').val(result.contactNo)
+                           console.log(result.name);
+                           console.log(result.email);
+                           console.log(result.contactNo);
+                      };
+                 });
+              }
+          });
+</script>
+@*<script>
+          $(document).ready(function () {
+            debugger
+              $('#City').change(function () {
+                    debugger
+                var selectedCity = $("#City").val();
+                  var hotels = $('#Hotel');
+                  hotels.empty();
+                if (selectedCity != null && selectedCity != '') {
+                    $.getJSON('@Url.Action("GetHotels")', { id: selectedCity }, function (result) {
+                        debugger
+                            {
+                                hotels.append($('<option/>', {
+                                    value: null,
+                                    text: "Select Hotel"
+                                }));
+                            $.each(result, function (index, hotel) {
+                                debugger
+                                hotels.append($('<option/>', {
+                                    value: hotel.value,
+                                    text: hotel.text
+                                    }));
+                                });
+                            };
+                     });
+                    }
+              });
+              $('#Hotel').change(function () {
+                    debugger
+                  var selectedHotel = $("#Hotel").val();
+                  var roomsTypes = $('#RoomType');
+                  roomsTypes.empty();
+                  if (selectedHotel != null && selectedHotel != '') {
+                      $.getJSON('@Url.Action("GetRoomTypes")', function (result) {
+                        debugger
+                          {
+                              roomsTypes.append($('<option/>', {
+                                    value: null,
+                                    text: "Select Room Type"
+                                }));
+                            $.each(result, function (index, type) {
+                                debugger
+                                roomsTypes.append($('<option/>', {
+                                    value: type.value,
+                                    text: type.text
+                                    }));
+                                });
+                            };
+                     });
+                  }
+              });
+               $('#RoomType').change(function () {
+                    debugger
+                   var selectedHotel = $("#Hotel").val();
+                   var selectedRoomType = $("#RoomType").val();
+                  var rooms = $('#Room');
+                  rooms.empty();
+                   if (selectedHotel != null && selectedHotel != '') {
+                       $.getJSON('@Url.Action("GetRoomsByHotelAndType")', { hotelId: selectedHotel, typeId: selectedRoomType }, function (result) {
+                        debugger
+                          {
+                              rooms.append($('<option/>', {
+                                    value: null,
+                                    text: "Select Room"
+                                }));
+                            $.each(result, function (index, room) {
+                                debugger
+                                rooms.append($('<option/>', {
+                                    value: room.value,
+                                    text: room.text
+                                    }));
+                                });
+                            };
+                      });
+                    }
+                });
+            });
+    </script>*@

@@ -1,0 +1,400 @@
+﻿@model FizzBook.Areas.Master.Models.Bookings.TableBookingsModel
+
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+                Edit table order
+            </h5>
+        </div>
+        <div class="modal-body">
+            <form id="formToSubmit"
+                  method="post"
+                  data-ajax="true"
+                  data-ajax-method="post"
+                  data-ajax-begin="OnBegin"
+                  data-ajax-success="completed"
+                  data-ajax-failure="OnFailure"
+                  data-ajax-url="@Url.Action("EditTableOrder","Booking")">
+                <div asp-validation-summary="ModelOnly">
+                    <span>Please correct the following errors</span>
+                </div>
+                @Html.HiddenFor(m => m.BuildingId)
+                @Html.HiddenFor(m => m.HotelId)
+                @Html.HiddenFor(m => m.FloorId)
+                @Html.HiddenFor(m => m.CityId)
+                @Html.HiddenFor(m => m.UserId)
+                @Html.HiddenFor(m => m.CountryId)
+                @Html.HiddenFor(m => m.DiscountAmount)
+                @Html.HiddenFor(m => m.TableId)
+                @Html.HiddenFor(m => m.TotalFare)
+                @Html.HiddenFor(m => m.FarePerHour)
+                @Html.HiddenFor(m => m.CreateDate)
+                @Html.HiddenFor(m => m.Id)
+                @Html.HiddenFor(m => m.IsBooked)
+                @Html.HiddenFor(m => m.IsBookedOnline)
+                @Html.HiddenFor(m => m.IsDeleted)
+                @Html.HiddenFor(m => m.IsPaid)
+                @Html.HiddenFor(m => m.IsRemaining)
+
+                @Html.HiddenFor(m => m.TotalBill)
+                @Html.HiddenFor(m => m.TotalFare)
+                @Html.HiddenFor(m => m.TotalHours)
+                @Html.HiddenFor(m => m.PaidAmount)
+                @Html.HiddenFor(m => m.RemainingAmount)
+
+                @*<div class="form-group row">
+            <div class="col-lg-4">
+                <label asp-for="BuildingId"></label>
+                @Html.DropDownListFor(x => Model.BuildingId, new SelectList(Model.Buildings, "Value", "Text"), "Select building", htmlAttributes: new { @class = "form-control", id = "Building" })
+                <span asp-validation-for="Rooms" class="text-danger"></span>
+            </div>
+            <div class="col-lg-4">
+                <label asp-for="TypeId"></label>
+                @Html.DropDownListFor(x => Model.TypeId, new SelectList(Model.RoomTypes, "Value", "Text"), "Select Room Type", htmlAttributes: new { @class = "form-control", id = "RoomType" })
+                <span asp-validation-for="TypeId" class="text-danger"></span>
+            </div>
+            <div class="col-lg-4">
+                <label asp-for="RoomId"></label>
+                @Html.DropDownListFor(x => Model.RoomId, new SelectList(Model.Rooms, "Value", "Text"), "Select room", htmlAttributes: new { @class = "form-control", id = "Room" })
+                <span asp-validation-for="Rooms" class="text-danger"></span>
+            </div>
+
+        </div>*@
+                <div class="form-group row">
+                    <div class="col-lg-6">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" autofocus class="form-control" name="Name" placeholder="" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6">
+                        <label asp-for="CNIC"></label>
+                        <input asp-for="CNIC" autofocus class="form-control" name="CNIC" placeholder="" />
+                        <span asp-validation-for="CNIC" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" autofocus class="form-control" name="Email" placeholder="" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6">
+                        <label asp-for="ContactNo"></label>
+                        <input asp-for="ContactNo" autofocus class="form-control" name="ContactNo" placeholder="" />
+                        <span asp-validation-for="ContactNo" class="text-danger"></span>
+                    </div>
+                    @*<div class="col-lg-6">
+                <label asp-for="NoOfRooms"></label>
+                <input asp-for="NoOfRooms" min="0" autofocus class="form-control" name="NoOfRooms" placeholder="" />
+                <span asp-validation-for="NoOfRooms" class="text-danger"></span>
+            </div>*@
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12">
+                        @Html.HiddenFor(m => m.ServiceIdsString)
+                        <label asp-for="ServiceIds">Table Services</label>
+                        @Html.DropDownListFor(x => Model.ServiceIds, new SelectList(Model.Services, "Value", "Text"), htmlAttributes: new { @class = "form-control select2", style = "width: 75%", id = "kt_select2_3", multiple = "multiple" })
+                        <span asp-validation-for="ServiceIds" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6">
+                        <label asp-for="CheckInDate"></label>
+                        <input asp-for="CheckInDate" autofocus class="form-control" name="CheckInDate" placeholder="" />
+                        <span asp-validation-for="CheckInDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6">
+                        <label asp-for="CheckInTime"></label>
+                        <input asp-for="CheckInTime" autofocus class="form-control" name="CheckInTime" placeholder="" />
+                        <span asp-validation-for="CheckInTime" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6">
+                        <label asp-for="CheckOutDate"></label>
+                        <input asp-for="CheckOutDate" autofocus class="form-control" name="CheckOutDate" placeholder="" />
+                        <span asp-validation-for="CheckOutDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6">
+                        <label asp-for="CheckOutTime"></label>
+                        <input asp-for="CheckOutTime" autofocus class="form-control" name="CheckOutTime" placeholder="" />
+                        <span asp-validation-for="CheckOutTime" class="text-danger"></span>
+                    </div>
+                </div>
+                @*<div class="form-group row">
+            <div class="col-lg-4">
+                <label asp-for="Cities"></label>
+                @Html.DropDownListFor(x => Model.CityId, new SelectList(Model.Cities, "Value", "Text"), "Select City", htmlAttributes: new { @class = "form-control", id = "City" })
+                <span asp-validation-for="Cities" class="text-danger"></span>
+            </div>
+            <div class="col-lg-4">
+                <label asp-for="Hotels"></label>
+                @Html.DropDownListFor(x => Model.HotelId, new SelectList(Model.Hotels, "Value", "Text"), "Select Hotel", htmlAttributes: new { @class = "form-control", id = "Hotel" })
+                <span asp-validation-for="Hotels" class="text-danger"></span>
+            </div>
+            <div class="col-lg-4">
+                <label asp-for="TypeId"></label>
+                @Html.DropDownListFor(x => Model.TypeId, new SelectList(Model.RoomTypes, "Value", "Text"), "Select Room Type", htmlAttributes: new { @class = "form-control", id = "RoomType" })
+                <span asp-validation-for="TypeId" class="text-danger"></span>
+            </div>
+
+        </div>*@
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+            <button type="button" onclick="SubmitForm()" id="GenericOkbtn" class="btn btn-primary font-weight-bold">Submit</button>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        jQuery.validator.unobtrusive.parse("#formToSubmit");
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        // Class definition
+        var KTSelect2 = function () {
+            // Private functions
+            var demos = function () {
+
+                // multi select
+                $('#kt_select2_3').select2({
+                });
+            }
+
+            var modalDemos = function () {
+                $('#kt_select2_modal').on('shown.bs.modal', function () {
+                    // multi select
+                    $('#kt_select2_3_modal').select2({
+                    });
+                });
+            }
+
+            // Public functions
+            return {
+                init: function () {
+                    demos();
+                    modalDemos();
+                }
+            };
+        }();
+
+        // Initialization
+        jQuery(document).ready(function () {
+            KTSelect2.init();
+        });
+
+        //$('#kt_select2_3').select2()
+        var selected = $('#ServiceIdsString').val();
+        var seatsArray = selected.split(',');
+        $('#kt_select2_3').val([seatsArray]);
+        $("#kt_select2_3").select2({
+        });
+        debugger
+        console.log(seatsArray);
+        for (let i = 0; i < seatsArray.length; i++) {
+            $('#kt_select2_3').val(seatsArray);
+            $('#kt_select2_3').trigger('change');
+        }
+
+
+        jQuery.validator.unobtrusive.parse("#formToSubmit");
+    });
+</script>
+
+@*<script>
+        $(document).ready(function () {
+            debugger
+            var buildingName = $("#BuildingName").val();
+            var roomNo = $("#RoomNo").val();
+            var buildingId = $("#BuildingId").val();
+            var roomId = $("#RoomId").val();
+            var typeId = $("#TypeId").val();
+            var roomTypeName = $("#RoomTypeName").val();
+            var selectedHotel = $("#HotelId").val();
+            debugger
+            var Buildings = $('#Building');
+            Buildings.empty();
+            if (selectedHotel != null && selectedHotel != '') {
+                debugger
+                           $.getJSON('@Url.Action("GetBuildings")', { id: selectedHotel }, function (result) {
+                            debugger
+                               {
+                                   if (result.length > 1) {
+                                       $.each(result, function (index, building) {
+                                           debugger
+                                           Buildings.append($('<option/>', {
+                                               value: building.value,
+                                               text: building.text
+                                           }));
+                                       });
+                                   }
+                                   else
+                                   {
+                                       Buildings.append($('<option />', {
+                                           value: buildingId,
+                                           text: buildingName
+                                       }));
+                                   }
+                              };
+                     });
+             }
+            debugger
+             var rooms = $('#Room');
+                      rooms.empty();
+                       if (selectedHotel != null && selectedHotel != '') {
+                           $.getJSON('@Url.Action("GetAvailableRoomsByHotel")', { id: selectedHotel }, function (result) {
+                            debugger
+                               {
+                                   rooms.append($('<option />', {
+                                       value: roomId,
+                                       text: roomNo
+                                   }));
+                                $.each(result, function (index, room) {
+                                    debugger
+                                    rooms.append($('<option/>', {
+                                        value: room.value,
+                                        text: room.text
+                                        }));
+                                    });
+                              };
+                           });
+            }
+        });
+
+           $('#Building').change(function () {
+                        debugger
+               var selectedHotel = $("#HotelId").val();
+                      var roomsTypes = $('#RoomType');
+                      roomsTypes.empty();
+                      if (selectedHotel != null && selectedHotel != '') {
+                          $.getJSON('@Url.Action("GetRoomTypes")', function (result) {
+                            debugger
+                              {
+                                  roomsTypes.append($('<option/>', {
+                                        value: null,
+                                        text: "Select Room Type"
+                                    }));
+                                $.each(result, function (index, type) {
+                                    debugger
+                                    roomsTypes.append($('<option/>', {
+                                        value: type.value,
+                                        text: type.text
+                                        }));
+                                    });
+                                };
+                         });
+                    }
+                });
+               $('#RoomType').change(function () {
+                        debugger
+                   var selectedHotel = $("#HotelId").val();
+                       var selectedRoomType = $("#RoomType").val();
+                      var rooms = $('#Room');
+                      rooms.empty();
+                       if (selectedHotel != null && selectedHotel != '') {
+                           $.getJSON('@Url.Action("GetAvailableRoomsByHotelAndTypeId")', { hotelId: selectedHotel, typeId: selectedRoomType }, function (result) {
+                            debugger
+                              {
+                                  rooms.append($('<option/>', {
+                                        value: null,
+                                        text: "Select Room"
+                                    }));
+                                $.each(result, function (index, room) {
+                                    debugger
+                                    rooms.append($('<option/>', {
+                                        value: room.value,
+                                        text: room.text
+                                        }));
+                                    });
+                                };
+                          });
+                        }
+                    });
+    </script>*@
+@*<script>
+          $(document).ready(function () {
+            debugger
+              $('#City').change(function () {
+                    debugger
+                var selectedCity = $("#City").val();
+                  var hotels = $('#Hotel');
+                  hotels.empty();
+                if (selectedCity != null && selectedCity != '') {
+                    $.getJSON('@Url.Action("GetHotels")', { id: selectedCity }, function (result) {
+                        debugger
+                            {
+                                hotels.append($('<option/>', {
+                                    value: null,
+                                    text: "Select Hotel"
+                                }));
+                            $.each(result, function (index, hotel) {
+                                debugger
+                                hotels.append($('<option/>', {
+                                    value: hotel.value,
+                                    text: hotel.text
+                                    }));
+                                });
+                            };
+                     });
+                    }
+              });
+              $('#Hotel').change(function () {
+                    debugger
+                  var selectedHotel = $("#Hotel").val();
+                  var roomsTypes = $('#RoomType');
+                  roomsTypes.empty();
+                  if (selectedHotel != null && selectedHotel != '') {
+                      $.getJSON('@Url.Action("GetRoomTypes")', function (result) {
+                        debugger
+                          {
+                              roomsTypes.append($('<option/>', {
+                                    value: null,
+                                    text: "Select Room Type"
+                                }));
+                            $.each(result, function (index, type) {
+                                debugger
+                                roomsTypes.append($('<option/>', {
+                                    value: type.value,
+                                    text: type.text
+                                    }));
+                                });
+                            };
+                     });
+                  }
+              });
+               $('#RoomType').change(function () {
+                    debugger
+                   var selectedHotel = $("#Hotel").val();
+                   var selectedRoomType = $("#RoomType").val();
+                  var rooms = $('#Room');
+                  rooms.empty();
+                   if (selectedHotel != null && selectedHotel != '') {
+                       $.getJSON('@Url.Action("GetRoomsByHotelAndType")', { hotelId: selectedHotel, typeId: selectedRoomType }, function (result) {
+                        debugger
+                          {
+                              rooms.append($('<option/>', {
+                                    value: null,
+                                    text: "Select Room"
+                                }));
+                            $.each(result, function (index, room) {
+                                debugger
+                                rooms.append($('<option/>', {
+                                    value: room.value,
+                                    text: room.text
+                                    }));
+                                });
+                            };
+                      });
+                    }
+                });
+            });
+    </script>*@

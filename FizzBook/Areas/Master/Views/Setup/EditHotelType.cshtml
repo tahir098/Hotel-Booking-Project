@@ -1,0 +1,48 @@
+﻿@model FizzBook.Areas.Master.Models.Setup.HotelTypesModel
+
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+                Edit Hotel Type
+            </h5>
+        </div>
+        <div class="modal-body">
+            <form id="formToSubmit"
+                  method="post"
+                  data-ajax="true"
+                  data-ajax-method="post"
+                  data-ajax-begin="OnBegin"
+                  data-ajax-success="completed"
+                  data-ajax-failure="OnFailure"
+                  data-ajax-url="@Url.Action("EditHotelType","Setup")">
+                    <div asp-validation-summary="ModelOnly">
+                        <span>Please correct the following errors</span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Type"></label>
+                        <input asp-for="Type" autofocus class="form-control" name="Type" />
+                        <span asp-validation-for="Type" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-1">
+                        <label asp-for="Description" for="exampleTextarea">Description<span class="text-danger">*</span></label>
+                        <textarea asp-for="Description" class="form-control" name="Description"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+            <button type="button" onclick="SubmitForm()" id="GenericOkbtn" class="btn btn-primary font-weight-bold">Submit</button>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        jQuery.validator.unobtrusive.parse("#formToSubmit");
+    });
+</script>

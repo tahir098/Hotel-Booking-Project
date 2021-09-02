@@ -1,0 +1,126 @@
+﻿@model FizzBook.Areas.Master.Models.Hotels.HotelsModel
+
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+                New Hotel
+            </h5>
+        </div>
+        <div class="modal-body">
+            <form id="formToSubmit"
+                  method="post"
+                  data-ajax="true"
+                  data-ajax-method="post"
+                  data-ajax-begin="OnBegin"
+                  data-ajax-success="completed"
+                  data-ajax-failure="OnFailure"
+                  enctype="multipart/form-data"
+                  data-ajax-url="@Url.Action("AddNewHotel","Hotels")">
+                <div asp-validation-summary="ModelOnly">
+                    <span>Please correct the following errors</span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-4">
+                        <label asp-for="HotelName"></label>
+                        <input asp-for="HotelName" autofocus class="form-control" name="HotelName" placeholder="" />
+                        <span asp-validation-for="HotelName" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <label asp-for="HotelEmail"></label>
+                        <input asp-for="HotelEmail" autofocus class="form-control" name="HotelEmail" placeholder="" />
+                        <span asp-validation-for="HotelEmail" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <label asp-for="Password"></label>
+                        <input asp-for="Password" autofocus class="form-control" name="Password" type="password" placeholder="" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <label asp-for="HotelWebsite"></label>
+                        <input asp-for="HotelWebsite" autofocus class="form-control" name="HotelWebsite" placeholder="" />
+                        <span asp-validation-for="HotelWebsite" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-4">
+                        <label asp-for="HotelPhone"></label>
+                        <input asp-for="HotelPhone" autofocus class="form-control" name="HotelPhone" placeholder="" />
+                        <span asp-validation-for="HotelPhone" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Image</label>
+                        <input type="file" name="HotelImage" class="form-control" />
+                    </div>
+                    <div class="col-lg-4">
+                        <label asp-for="HotelAddress"></label>
+                        <input asp-for="HotelAddress" autofocus class="form-control" name="HotelAddress" placeholder="" />
+                        <span asp-validation-for="HotelAddress" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6">
+                        <label asp-for="Countries"></label>
+                        @Html.DropDownListFor(x => Model.HotelCountryId, new SelectList(Model.Countries, "Value", "Text"), "Select Country", htmlAttributes: new { @class = "form-control", id = "Country" })
+                        <span asp-validation-for="HotelCountryId" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6">
+                        <label asp-for="Cities"></label>
+                        @Html.DropDownListFor(x => Model.HotelCityId, new SelectList(Model.Cities, "Value", "Text"), "Select City", htmlAttributes: new { @class = "form-control", id = "City" })
+                        <span asp-validation-for="HotelCityId" class="text-danger"></span>
+                    </div>
+                    @*<div class="col-lg-4">
+                            <label asp-for="HotelTypes"></label>
+                            @Html.DropDownListFor(x => Model.HotelTypeId, new SelectList(Model.HotelTypes, "Value", "Text"), "Select Type", htmlAttributes: new { @class = "form-control", id = "Hotetype" })
+                            <span asp-validation-for="HotelTypes" class="text-danger"></span>
+                        </div>*@
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+            <button type="button" onclick="SubmitForm()" id="GenericOkbtn" class="btn btn-primary font-weight-bold">Submit</button>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        jQuery.validator.unobtrusive.parse("#formToSubmit");
+    });
+</script>
+<script>
+      $(document).ready(function () {
+          $('#Country').change(function () {
+              debugger
+              var selectedCountry = $("#Country").val();
+              var cities = $('#City');
+              cities.empty();
+              if (selectedCountry != null && selectedCountry != '') {
+                  $.getJSON('@Url.Action("GetCities")', { id: selectedCountry }, function (result) {
+                      debugger
+                        {
+                          cities.append($('<option/>', {
+                                value: null,
+                                text: "Select City"
+                            }));
+                        $.each(result, function (index, city) {
+                            cities.append($('<option/>', {
+                                value: city.value,
+                                text: city.text
+                                }));
+                            });
+                        };
+                 });
+                }
+            });
+        });
+</script>
+
+
+
+
+
+

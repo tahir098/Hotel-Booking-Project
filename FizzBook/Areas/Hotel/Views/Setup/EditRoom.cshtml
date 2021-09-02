@@ -1,0 +1,218 @@
+﻿@model FizzBook.Areas.Hotel.Models.Hotels.RoomsModel
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+                Edit @Model.RoomNo
+            </h5>
+        </div>
+        <div class="modal-body">
+            <form id="formToSubmit"
+                  method="post"
+                  data-ajax="true"
+                  data-ajax-method="post"
+                  data-ajax-begin="OnBegin"
+                  data-ajax-success="completed"
+                  data-ajax-failure="OnFailure"
+                  enctype="multipart/form-data"
+                  data-ajax-url="@Url.Action("EditRoom","Setup")">
+                    <div asp-validation-summary="ModelOnly">
+                        <span>Please correct the following errors</span>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <label asp-for="RoomNo"></label>
+                            <input asp-for="RoomNo" autofocus class="form-control" name="RoomNo" placeholder="" />
+                            <span asp-validation-for="RoomNo" class="text-danger"></span>
+                        </div>
+                        <div class="col-lg-4">
+                            <label asp-for="TypeId">Type</label>
+                            @Html.DropDownListFor(x => Model.TypeId, new SelectList(Model.Types, "Value", "Text"), "Select Type", htmlAttributes: new { @class = "form-control", id = "type" })
+                            <span asp-validation-for="TypeId" class="text-danger"></span>
+                        </div>
+                        <div class="col-lg-4">
+                            <label asp-for="NoOfBeds"></label>
+                            <input asp-for="NoOfBeds" min="0" autofocus class="form-control" name="NoOfBeds" placeholder="" />
+                            <span asp-validation-for="NoOfBeds" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <label asp-for="MaxNoOfPersons">Max No Of Persons</label>
+                            <input asp-for="MaxNoOfPersons" min="0" autofocus class="form-control" name="MaxNoOfPersons" placeholder="" />
+                            <span asp-validation-for="MaxNoOfPersons" class="text-danger"></span>
+                        </div>
+                        <div class="col-lg-4">
+                            <label asp-for="FarePerNight">Fare Per Night</label>
+                            <input asp-for="FarePerNight" min="0" autofocus class="form-control" name="FarePerNight" placeholder="" />
+                            <span asp-validation-for="FarePerNight" class="text-danger"></span>
+                        </div>
+                        <div class="col-lg-4">
+                            <label asp-for="RoomView"></label>
+                            <input asp-for="RoomView" autofocus class="form-control" name="RoomView" placeholder="Room View" />
+                            <span asp-validation-for="RoomView" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <label asp-for="HotelName">Hotel</label>
+                            @*@Html.DropDownListFor(x => Model.HotelId, new SelectList(Model.Hotels, "Value", "Text"), "Select Hotel", htmlAttributes: new { @class = "form-control", id = "Hotel" })*@
+                            <input asp-for="HotelName" autofocus class="form-control" name="HotelName" placeholder="Hotel Name" readonly />
+                            <span asp-validation-for="HotelName" class="text-danger"></span>
+                        </div>
+                        <div class="col-lg-4">
+                            <label asp-for="BuildingId">Building</label>
+                            @Html.DropDownListFor(x => Model.BuildingId, new SelectList(Model.Buildings, "Value", "Text"), "Select Building", htmlAttributes: new { @class = "form-control", id = "Building" })
+                            <span asp-validation-for="BuildingId" class="text-danger"></span>
+                        </div>
+                        <div class="col-lg-4">
+                            <label asp-for="FloorId">Floor</label>
+                            @Html.DropDownListFor(x => Model.FloorId, new SelectList(Model.Floors, "Value", "Text"), "Select Floor", htmlAttributes: new { @class = "form-control", id = "Floor" })
+                            <span asp-validation-for="FloorId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-6">
+                            <label asp-for="RoomImage" class="control-label"></label>
+                            <div class="custom-file">
+                                <input asp-for="RoomImage" name="RoomImage" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
+                            <span asp-validation-for="RoomImage" class="text-danger"></span>
+                        </div>
+                        @if (Model.ImageUrl != null)
+                        {
+                            <label>Previous Image</label>
+                            <div class="col-lg-4">
+                                <img src="~/Images/@Model.ImageUrl" width="50" height="50" />
+                            </div>
+                        }
+
+                    </div>
+                    <div class="form-group row">
+                        @Html.HiddenFor(m => m.ImageUrl)
+                        @Html.HiddenFor(m => m.ServiceIdsString)
+                        <div class="col-md-12">
+                            <label asp-for="ServiceIds">Services</label>
+                            @Html.DropDownListFor(x => Model.ServiceIds, new SelectList(Model.Services, "Value", "Text"), htmlAttributes: new { @class = "form-control select2", style = "width: 75%", id = "kt_select2_3", multiple = "multiple" })
+                            <span asp-validation-for="ServiceIds" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-12">
+                            <label asp-for="Description" for="exampleTextarea">Description<span class="text-danger">*</span></label>
+                            <textarea asp-for="Description" class="form-control" name="Description" placeholder="Please provide room type description"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+            <button type="button" onclick="SubmitForm()" id="GenericOkbtn" class="btn btn-primary font-weight-bold">Submit</button>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        jQuery.validator.unobtrusive.parse("#formToSubmit");
+    });
+</script>
+
+
+<script>
+
+    //$('#kt_select2_3').select2()
+    var selected = $('#ServiceIdsString').val();
+    var seatsArray = selected.split(',');
+    $('#kt_select2_3').val([seatsArray]);
+    $("#kt_select2_3").select2({
+    });
+    debugger
+    console.log(seatsArray);
+    for (let i = 0; i < seatsArray.length; i++) {
+        $('#kt_select2_3').val(seatsArray);
+        $('#kt_select2_3').trigger('change');
+    }
+
+
+
+    //On Submit
+    $('#GenericOkbtn').click(function () {
+        debugger
+        var selected = $("#kt_select2_3 :selected").map((_, e) => e.value).get();
+        var routeString = (selected.join(','));
+        $("#ServiceIdsString").val(routeString);
+    });
+
+
+    // Add the following code if you want the name of the file appear on select  
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    }); 
+
+      $(document).ready(function () {
+         
+          $('#Building').change(function () {
+              var selectedBuilding = $("#Building").val();
+              var floors = $('#Floor');
+              floors.empty();
+              if (selectedBuilding != null && selectedBuilding != '') {
+                  $.getJSON('@Url.Action("GetFloors")', { buildingId: selectedBuilding }, function (result) {
+                        {
+                          floors.append($('<option/>', {
+                                value: null,
+                                text: "Select Floor"
+                            }));
+                        $.each(result, function (index, floor) {
+                            floors.append($('<option/>', {
+                                value: floor.value,
+                                text: floor.text
+                                }));
+                            });
+                        };
+                 });
+              }
+          });
+      });
+
+
+    // Class definition
+    var KTSelect2 = function () {
+        // Private functions
+        var demos = function () {
+
+            // multi select
+            $('#kt_select2_3').select2({
+                placeholder: "Select Service",
+            });
+        }
+
+        var modalDemos = function () {
+            $('#kt_select2_modal').on('shown.bs.modal', function () {
+                // multi select
+                $('#kt_select2_3_modal').select2({
+                    placeholder: "Select Service",
+                });
+            });
+        }
+
+        // Public functions
+        return {
+            init: function () {
+                demos();
+                modalDemos();
+            }
+        };
+    }();
+
+    // Initialization
+    jQuery(document).ready(function () {
+        KTSelect2.init();
+    });
+
+</script>

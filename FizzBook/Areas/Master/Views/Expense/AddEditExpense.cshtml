@@ -1,0 +1,73 @@
+﻿@model FizzBook.Areas.Master.Models.Hotels.ExpenseModel
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            @if (Model.Id != Guid.Empty)
+            {
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Edit Expense
+                </h5>
+            }
+            else
+            {
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Add Expense
+                </h5>
+            }
+
+        </div>
+        <div class="modal-body">
+            <form id="formToSubmit" method="post" data-ajax="true" data-ajax-begin="OnBegin" data-ajax-success="completed" data-ajax-failure="OnFailure" data-ajax-url="@Url.Action("AddEditExpense","Expense")">
+                @if (Model.Id != Guid.Empty)
+                {
+                    @Html.HiddenFor(p => p.Id)
+                    @Html.HiddenFor(p => p.CreationDate)
+
+
+                }
+                <div class="form-group row">
+
+                    <div class="col-lg-6">
+                        <label>Amount: <span class="text-danger">*</span></label>
+                        <input asp-for="Amount" min="0" class="form-control" placeholder="">
+                        <span class="form-text text-danger" asp-validation-for="Amount"></span>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="exampleSelect1">Expense Type <span class="text-danger">*</span></label>
+                        <select class="form-control" asp-for="ExpenseTypeId">
+                            @if (Model.ExpenseTypes != null && Model.ExpenseTypes.Count() > 0)
+                            {
+                                foreach (var item in Model.ExpenseTypes)
+                                {
+                                    <option value="@item.Id">@item.ExpenseType</option>
+                                }
+                            }
+
+                        </select>
+                        <span class="form-text text-danger" asp-validation-for="ExpenseTypeId"></span>
+                    </div>
+                    <div class="col-lg-12">
+                        <label> Description: <span class="text-danger">*</span></label>
+                        <textarea asp-for="ExpenseDescription" class="form-control" placeholder="Enter full name">
+</textarea>
+                        <span class="form-text text-danger" asp-validation-for="ExpenseDescription"></span>
+                    </div>
+
+
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+            <button type="button" onclick="SubmitForm()" id="GenericOkbtn" class="btn btn-primary font-weight-bold">Submit</button>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        jQuery.validator.unobtrusive.parse("#GenericForm");
+    });
+</script>

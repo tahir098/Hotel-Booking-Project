@@ -1,0 +1,96 @@
+﻿@model FizzBook.Areas.Hotel.Models.Hotels.FloorModel
+
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+                New Floor
+            </h5>
+        </div>
+        <div class="modal-body">
+            <form id="formToSubmit"
+                  method="post"
+                  data-ajax="true"
+                  data-ajax-method="post"
+                  data-ajax-begin="OnBegin"
+                  data-ajax-success="completed"
+                  data-ajax-failure="OnFailure"
+                  enctype="multipart/form-data"
+                  data-ajax-url="@Url.Action("AddFloor","Setup")">
+                    <div asp-validation-summary="ModelOnly">
+                        <span>Please correct the following errors</span>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-6">
+                            <label asp-for="FloorNo"></label>
+                            <input asp-for="FloorNo" autofocus class="form-control" name="FloorNo" placeholder="" />
+                            <span asp-validation-for="FloorNo" class="text-danger"></span>
+                        </div>
+                        <div class="col-lg-6">
+                            <label asp-for="HotelId">Hotel</label>
+                            @Html.DropDownListFor(x => Model.HotelId, new SelectList(Model.Hotels, "Value", "Text"), "Select Hotel", htmlAttributes: new { @class = "form-control", id = "Hotel" })
+                            <span asp-validation-for="HotelId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-12">
+                            <label>Image</label>
+                            <input type="file" name="FloorImage" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-12">
+                            <label asp-for="BuildingId">Building</label>
+                            @Html.DropDownListFor(x => Model.BuildingId, new SelectList(Model.Buildings, "Value", "Text"), "Select Building", htmlAttributes: new { @class = "form-control", id = "Building" })
+                            <span asp-validation-for="BuildingId" class="text-danger"></span>
+                        </div>
+                    </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+            <button type="button" onclick="SubmitForm()" id="GenericOkbtn" class="btn btn-primary font-weight-bold">Submit</button>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        jQuery.validator.unobtrusive.parse("#formToSubmit");
+    });
+</script>
+<script>
+      $(document).ready(function () {
+          $('#Hotel').change(function () {
+              var selectedHotel = $("#Hotel").val();
+              var buildings = $('#Building');
+              buildings.empty();
+              if (selectedHotel != null && selectedHotel != '') {
+                  $.getJSON('@Url.Action("GetBuildings")', { id: selectedHotel }, function (result) {
+                      {
+                          debugger
+                          buildings.append($('<option/>', {
+                                value: null,
+                                text: "Select Building"
+                            }));
+                          $.each(result, function (index, building) {
+                              debugger
+                            buildings.append($('<option/>', {
+                                value: building.value,
+                                text: building.text
+                                }));
+                            });
+                        };
+                 });
+                }
+            });
+        });
+</script>
+
+
+
+
+
+

@@ -1,0 +1,110 @@
+﻿@model FizzBook.Areas.Master.Models.Setup.HotelOfficerViewModel
+
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                @if (Model.HotelOfficerId != Guid.Empty)
+                {
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Edit Officer
+                    </h5>
+                }
+                else
+                {
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Add Officer
+                    </h5>
+                }
+            </div>
+            <div class="modal-body">
+                <form id="formToSubmit" method="post" data-ajax="true" data-ajax-begin="OnBegin" data-ajax-success="completed" data-ajax-failure="OnFailure" data-ajax-url="@Url.Action("AddEditHotelOfficer","UserManagment")">
+                    @if (Model.HotelOfficerId != Guid.Empty)
+                    {
+                        @*@Html.HiddenFor(p => p.Id)*@
+                        @Html.HiddenFor(p => p.HotelOfficerId)
+
+                        @Html.HiddenFor(p => p.CreatedDate)
+                        @Html.HiddenFor(p => p.IsDeleted)
+
+                    }
+                    <div class="form-group row">
+                        <div class="col-lg-6">
+                            <label> Name: <span class="text-danger">*</span></label>
+                            <input asp-for="Name" class="form-control" placeholder="">
+                            <span class="form-text text-danger" asp-validation-for="Name"></span>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Username: <span class="text-danger">*</span></label>
+                            <input asp-for="UserName" class="form-control" placeholder="">
+                            <span class="form-text text-danger" asp-validation-for="UserName"></span>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <label>Password: <span class="text-danger">*</span></label>
+                            <div class="input-group">
+
+                                <input asp-for="Password" class="form-control" placeholder="">
+
+                            </div>
+                            <span class="form-text text-danger" asp-validation-for="Password"></span>
+
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Mobile: <span class="text-danger">*</span></label>
+                            <div class="input-group">
+
+                                <input asp-for="Mobile" min="0" class="form-control" placeholder="">
+
+                            </div>
+                            <span class="form-text text-danger" asp-validation-for="Mobile"></span>
+
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="exampleSelect1">Hotel<span class="text-danger">*</span></label>
+                            <select class="form-control" asp-for="HotelId">
+                                @if (Model.Hotels != null && Model.Hotels.Count() > 0)
+                                {
+                                    <option value="">Select Hotel</option>
+                                    foreach (var item in Model.Hotels)
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                }
+
+                            </select>
+                            <span class="form-text text-danger" asp-validation-for="HotelId"></span>
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="exampleSelect1">Roles<span class="text-danger">*</span></label>
+                            <select class="form-control" asp-for="HotelOfficerRoleId">
+                                @if (Model.HotelOfficerRoles != null && Model.HotelOfficerRoles.Count() > 0)
+                                {
+                                    <option value="">Select Officer Role</option>
+                                    foreach (var item in Model.HotelOfficerRoles)
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                }
+                            </select>
+                            <span class="form-text text-danger" asp-validation-for="HotelOfficerRoleId"></span>
+                        </div>
+
+
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+                <button type="button" onclick="SubmitForm()" id="GenericOkbtn" class="btn btn-primary font-weight-bold">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            jQuery.validator.unobtrusive.parse("#GenericForm");
+        });
+    </script>
