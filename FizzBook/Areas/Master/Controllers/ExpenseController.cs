@@ -16,13 +16,18 @@ namespace FizzBook.Areas.Master.Controllers
     public class ExpenseController : Controller
     {
         private readonly IHotelsRepository _hotelsRepository;
+        private readonly IExpenseRepository _expenseRepository;
 
         public FizzHotleBookingContext _Context { get; }
 
-        public ExpenseController(FizzHotleBookingContext context, IHotelsRepository hotelsRepository)
+        public ExpenseController(FizzHotleBookingContext context,
+            IHotelsRepository hotelsRepository,
+            IExpenseRepository expenseRepository
+            )
         {
             _Context = context;
             _hotelsRepository = hotelsRepository;
+            _expenseRepository = expenseRepository;
         }
 
         public IActionResult ExpenseTypes()
@@ -30,8 +35,6 @@ namespace FizzBook.Areas.Master.Controllers
             var model = _Context.ExpenseTypes.Where(p => p.IsDeleted == false).ToList();
             return View(model);
         }
-
-
 
         [HttpGet]
         public IActionResult AddEditExpenseType(Guid id)
